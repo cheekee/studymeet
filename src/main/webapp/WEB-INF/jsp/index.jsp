@@ -32,7 +32,7 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="#">Home</a></li>
-                <li role="presentation"><a href="#">SignIn</a></li>
+                <li role="presentation"><a href="/login">SignIn</a></li>
                 <li role="presentation"><a href="#">SignUp</a></li>
             </ul>
         </nav>

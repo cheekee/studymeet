@@ -16,6 +16,5 @@ public class UserController {
         System.out.println("AAa");
         return "user/loginForm";
     }
-    //test
 
 }
