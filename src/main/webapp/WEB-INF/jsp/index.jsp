@@ -31,12 +31,12 @@
     <div class="header">
         <nav>
             <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation" class="active"><a href="/">Home</a></li>
                 <li role="presentation"><a href="/login">SignIn</a></li>
                 <li role="presentation"><a href="#">SignUp</a></li>
             </ul>
         </nav>
-        <h3 class="text-muted">StydyMeet</h3>
+        <h3 class="text-muted"><a href="/" style="text-decoration: none;">StudyMeet</a></h3>
     </div>
 
     <div class="jumbotron">
@@ -44,9 +44,9 @@
     </div>
 
     <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+        <a href="/meetingPost/meetingPostRetrieve" class="list-group-item list-group-item-action flex-column align-items-start active">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">대전 자바 스터디 모집합니다. (태그 있으면 좋겠다..)</h5>
+                <h5 class="mb-1">Click me!! 대전 자바 스터디 모집합니다. (태그 있으면 좋겠다..)</h5>
                 <small>2018-05-01 13:30</small>
             </div>
             <p class="mb-1">대전에서 쓸쓸하게 혼자서 자바 공부하시는 분들 안녕하세요.</p>
@@ -107,6 +107,15 @@ paging
     </footer>
 
 </div> <!-- /container -->
-
 </body>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+    });
+
+</script>
+
 </html>
