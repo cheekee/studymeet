@@ -15,6 +15,7 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap/bootstrapTemplete.css" rel="stylesheet">
+    <link href="/css/commoncss.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
 

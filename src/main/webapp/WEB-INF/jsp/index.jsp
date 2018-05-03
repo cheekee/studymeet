@@ -15,6 +15,7 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap/bootstrapTemplete.css" rel="stylesheet">
+    <link href="/css/commoncss.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
 
@@ -101,7 +102,19 @@
             <p class="mb-1">i want find toeic stydy meeting. in Soeul</p>
         </a>
     </div>
-paging
+
+    <nav aria-label="Page navigation example" style="text-align: center">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+
     <footer class="footer">
         <p>&copy; Company 2018</p>
     </footer>
