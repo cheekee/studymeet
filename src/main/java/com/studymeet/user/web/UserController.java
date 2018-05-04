@@ -1,7 +1,10 @@
 package com.studymeet.user.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.studymeet.user.service.UserService;
 
 @Controller
 public class UserController {
@@ -13,8 +16,12 @@ public class UserController {
 
     @RequestMapping("/login")
     public String login() {
-        System.out.println("AAa");
         return "user/loginForm";
+    }
+    
+    @RequestMapping("/signin")
+    public void signin() {
+    	// userService.userLogin(id, password)
     }
 
 }
