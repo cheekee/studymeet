@@ -18,21 +18,20 @@
 				<nav>
 					<ul class="nav nav-pills pull-right">
 						<li role="presentation" class="active"><a href="/">Home</a></li>
-						<li role="presentation"><a href="/login">SignIn</a></li>
-						<li role="presentation"><a href="#">SignUp</a></li>
+						<li role="presentation"><a href="/signup">SignUp</a></li>
 					</ul>
 				</nav>
 				<h3 class="text-muted"><a href="/" style="text-decoration: none;">StudyMeet</a></h3>
 			</div>
 			
-			<form id="formSignin" class="form-signin">
+			<form id="formSignin" class="form-signin" action="/exesignin" method="post" enctype="application/x-www-form-urlencoded">
 				<h2 class="form-signin-heading">Please sign in</h2>
 				
 				<label for="inputId" class="sr-only">User ID</label>
-				<input type="text" id="inputId" class="input-login-data form-control" placeholder="User ID" required="" autofocus="" warning-message="Please input your ID.">
+				<input type="text" id="inputId" name="inputId" class="input-login-data form-control" placeholder="User ID" required="" autofocus="" warning-message="Please input your ID.">
 				
 				<label for="inputPassword" class="sr-only">Password</label>
-				<input type="password" id="inputPassword" class="input-login-data form-control" placeholder="Password" required="" warning-message="Please input your Password.">
+				<input type="password" id="inputPassword" name="inputPassword" class="input-login-data form-control" placeholder="Password" required="" warning-message="Please input your Password.">
 				
 				<div class="checkbox">
 					<label>
@@ -65,10 +64,20 @@
 		});
 		
 		if(isSubmitState){
-			console.log("submit");
-			// TODO Create AJAX function for sign in check
-			// success --> Sign in and move main page
-			// error   --> Out put alert message
+			 $.ajax({
+				type : "POST",
+				url : "/exesignin",
+				data : $("#formSignin").serialize(),
+				dataType : "json",
+				error : function(){
+					alert('Error!!');
+				},
+				success : function(data){
+					alert("Success") ;
+				}
+				 
+			});
+
 		}
 	}
 	

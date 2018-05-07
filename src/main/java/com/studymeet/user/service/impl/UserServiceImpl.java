@@ -21,7 +21,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public boolean userLogin(String id, String password) {
-		String passwordHash = encryption.encryptionStringData(password);
+		System.out.println("===============in service==================");
+		System.out.println("id : " + id);
+		String passwordHash = encryption.StringToHasingSHA256(password);
+		System.out.println("passwordHash : " + passwordHash);
+		System.out.println("============================================");
+		
 		return userDao.userLogin(id, passwordHash);
 	}
 	
@@ -30,7 +35,7 @@ public class UserServiceImpl implements UserService {
 		UserDto userDto = new UserDto();
 		
 		userDto.setId((String) userParam.get("id"));
-		userDto.setPassword(encryption.encryptionStringData((String) userParam.get("password")));
+		userDto.setPassword(encryption.StringToHasingSHA256((String) userParam.get("password")));
 		userDto.setName((String) userParam.get("name"));
 		userDto.setGender((String) userParam.get("gender"));
 		userDto.setPhone((String) userParam.get("phone"));
@@ -46,7 +51,7 @@ public class UserServiceImpl implements UserService {
 		UserDto userDto = new UserDto();
 		
 		userDto.setId((String) userParam.get("id"));
-		userDto.setPassword(encryption.encryptionStringData((String) userParam.get("password")));
+		userDto.setPassword(encryption.StringToHasingSHA256((String) userParam.get("password")));
 		userDto.setName((String) userParam.get("name"));
 		userDto.setGender((String) userParam.get("gender"));
 		userDto.setPhone((String) userParam.get("phone"));

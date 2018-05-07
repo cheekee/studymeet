@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class DataEncryption {
 	
-	public String encryptionStringData(String str){
+	public String StringToHasingSHA256(String str){
 	     
 		try {
 			StringBuffer sbuf = new StringBuffer();
