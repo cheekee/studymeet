@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.studymeet.user.dao">
+ 
+    <!-- /* select dual */ -->
+    <select id="getTest" resultType="java.lang.String">
+        SELECT 'test string' FROM DUAL
+    </select>
+ 
+</mapper>

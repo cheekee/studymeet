@@ -3,6 +3,9 @@ package com.studymeet.security;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class DataEncryption {
 	
 	public String StringToHasingSHA256(String str){

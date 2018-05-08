@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.studymeet.security.DataEncryption;
 import com.studymeet.user.dao.UserDao;
 import com.studymeet.user.dto.UserDto;
 import com.studymeet.user.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -27,7 +29,8 @@ public class UserServiceImpl implements UserService {
 		System.out.println("passwordHash : " + passwordHash);
 		System.out.println("============================================");
 		
-		return userDao.userLogin(id, passwordHash);
+		return userDao.userLogin(id, password);
+		//return userDao.userLogin(id, passwordHash);
 	}
 	
 	@Override

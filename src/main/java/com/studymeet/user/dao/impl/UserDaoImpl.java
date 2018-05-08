@@ -2,14 +2,18 @@ package com.studymeet.user.dao.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.studymeet.user.dao.UserDao;
 import com.studymeet.user.dto.UserDto;
 
+@Repository
 public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public boolean userLogin(String id, String password) {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
