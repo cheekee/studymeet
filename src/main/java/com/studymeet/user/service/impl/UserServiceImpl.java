@@ -23,13 +23,22 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public boolean userLogin(String id, String password) {
-		System.out.println("===============in service==================");
-		System.out.println("id : " + id);
-		String passwordHash = encryption.StringToHasingSHA256(password);
-		System.out.println("passwordHash : " + passwordHash);
-		System.out.println("============================================");
+		UserDto userDto = new UserDto();
 		
-		return userDao.userLogin(id, password);
+		System.out.println("===============in service==================");
+		userDto.setId(id);
+//		userDto.setPassword(encryption.StringToHasingSHA256(password));
+		userDto.setPassword(password);
+		System.out.println("============================================");
+		int loginCount = userDao.userLogin(userDto);
+		
+		if(loginCount == 1){
+			// session cookie 생성하기
+			
+			return true;
+		}
+		
+		return false;
 		//return userDao.userLogin(id, passwordHash);
 	}
 	

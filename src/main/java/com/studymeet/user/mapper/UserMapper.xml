@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.studymeet.user.mapper.UserMapper">
+ 
+    <insert id="insertMember" parameterType="com.studymeet.user.dto.UserDto">
+        INSERT INTO USER (
+        	ID,
+        	PASSWORD,
+        	NAME,
+        	GENDER,
+        	ADDRESS,
+        	PHONE,
+        	IS_ADMIN,
+        	REG_DT
+        ) VLAUES (
+        	#{id,				jdbcType=VARCHAR},
+        	#{password,			jdbcType=VARCHAR},
+        	#{name,				jdbcType=VARCHAR},
+        	#{gender,			jdbcType=VARCHAR},
+        	#{address,			jdbcType=VARCHAR},
+        	#{phone,			jdbcType=VARCHAR},
+        	'false',
+        	SYSDATE
+        )
+    </insert>
+    
+    <select id="hasMember" parameterType="com.studymeet.user.dto.UserDto" resultType="int">
+        SELECT 
+        	COUNT(*) 
+        FROM
+        	MEMBER
+       	WHERE
+       		ID = #{id,				jdbcType=VARCHAR}
+       		AND PASSWORD = #{password,			jdbcType=VARCHAR}
+    </select>
+    
+    
+ 
+</mapper>

@@ -13,7 +13,7 @@ public interface UserDao {
 	 * @param password
 	 * @return
 	 */
-	public boolean userLogin(String id, String password);
+	public int userLogin(UserDto userDto);
 	
 	/**
 	 * Create User

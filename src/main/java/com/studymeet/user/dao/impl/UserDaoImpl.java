@@ -2,19 +2,31 @@ package com.studymeet.user.dao.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 
 import com.studymeet.user.dao.UserDao;
 import com.studymeet.user.dto.UserDto;
+import com.studymeet.user.mapper.UserMapper;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 	
+	@Resource(name="com.studymeet.user.mapper.UserMapper")
+	UserMapper userMapper;
+	
 	@Override
-	public boolean userLogin(String id, String password) {
-		// TODO Auto-generated method stub
+	public int userLogin(UserDto userDto) {
+		System.out.println("testMember....");
+		try {
+			return userMapper.hasMember(userDto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return false;
+		return 0;
 	}
 	
 	@Override
