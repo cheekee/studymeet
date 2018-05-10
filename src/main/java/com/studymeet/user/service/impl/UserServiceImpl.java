@@ -25,15 +25,13 @@ public class UserServiceImpl implements UserService {
 	public boolean userLogin(String id, String password) {
 		UserDto userDto = new UserDto();
 		
-		System.out.println("===============in service==================");
 		userDto.setId(id);
-//		userDto.setPassword(encryption.StringToHasingSHA256(password));
-		userDto.setPassword(password);
-		System.out.println("============================================");
-		int loginCount = userDao.userLogin(userDto);
+		userDto.setPassword(encryption.StringToHasingSHA256(password));
+		int loginCount = userDao.hasUser(userDto);
+		System.out.println("loginCount : " + loginCount);
 		
 		if(loginCount == 1){
-			// session cookie 생성하기
+			// session 생성하기
 			
 			return true;
 		}
@@ -52,8 +50,6 @@ public class UserServiceImpl implements UserService {
 		userDto.setGender((String) userParam.get("gender"));
 		userDto.setPhone((String) userParam.get("phone"));
 		userDto.setAddress((String) userParam.get("address"));
-		userDto.setIsAdmin((String) userParam.get("isAdmin"));
-		userDto.setRegDt((Date) userParam.get("regDt"));
 		
 		return userDao.createUser(userDto);
 	}
@@ -95,6 +91,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDto> selectUserList() {
 		return userDao.selectUserList();
+	}
+
+	@Override
+	public boolean checkDuplicatedId(String id) {
+		UserDto userDto = new UserDto();
+		userDto.setId(id);
+		
+		int duplicateIdCnt = userDao.hasUser(userDto);
+		
+		if(0 < duplicateIdCnt){
+			return true;
+		}
+		return false;
 	}
 	
 }

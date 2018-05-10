@@ -17,12 +17,12 @@ public class UserDaoImpl implements UserDao {
 	UserMapper userMapper;
 	
 	@Override
-	public int userLogin(UserDto userDto) {
-		System.out.println("testMember....");
+	public int hasUser(UserDto userDto) {
 		try {
+			
 			return userMapper.hasMember(userDto);
+		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -31,8 +31,13 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public boolean createUser(UserDto userDto) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			userMapper.insertMember(userDto);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

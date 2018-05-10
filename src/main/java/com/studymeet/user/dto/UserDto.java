@@ -76,5 +76,16 @@ public class UserDto {
 	public void setRegDt(Date regDt) {
 		this.regDt = regDt;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("UserDto [id=").append(id).append(", password=").append(password).append(", name=").append(name)
+				.append(", gender=").append(gender).append(", address=").append(address).append(", phone=")
+				.append(phone).append(", isAdmin=").append(isAdmin).append(", regDt=").append(regDt).append("]");
+		return builder.toString();
+	}
+	
+	
 	
 }

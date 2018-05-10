@@ -1,39 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.studymeet.user.mapper.UserMapper">
- 
-    <insert id="insertMember" parameterType="com.studymeet.user.dto.UserDto">
-        INSERT INTO USER (
-        	ID,
-        	PASSWORD,
-        	NAME,
-        	GENDER,
-        	ADDRESS,
-        	PHONE,
-        	IS_ADMIN,
-        	REG_DT
-        ) VLAUES (
-        	#{id,				jdbcType=VARCHAR},
-        	#{password,			jdbcType=VARCHAR},
-        	#{name,				jdbcType=VARCHAR},
-        	#{gender,			jdbcType=VARCHAR},
-        	#{address,			jdbcType=VARCHAR},
-        	#{phone,			jdbcType=VARCHAR},
-        	'false',
-        	SYSDATE
-        )
-    </insert>
-    
-    <select id="hasMember" parameterType="com.studymeet.user.dto.UserDto" resultType="int">
-        SELECT 
-        	COUNT(*) 
-        FROM
-        	MEMBER
-       	WHERE
-       		ID = #{id,				jdbcType=VARCHAR}
-       		AND PASSWORD = #{password,			jdbcType=VARCHAR}
-    </select>
-    
-    
- 
+	
+	<!-- Member 존재 여부 확인 : 회원 가입 시 ID 중복 체크 / 로그인 시 ID, Password 일치 체크 -->
+	<select id="hasMember" parameterType="com.studymeet.user.dto.UserDto"
+		resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER
+		WHERE
+			ID = #{id, jdbcType=VARCHAR}
+			<if test="password != null and password != ''">
+				AND PASSWORD = #{password, jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- Member 정보를 통한 ID 찾기 -->
+	<select id="findMemberId" parameterType="hashmap" resultType="java.lang.String">
+		SELECT
+			ID
+		FROM
+			MEMBER
+		WHERE
+			NAME = #{name, jdbcType=VARCHAR}
+			<if test="address != null and address != ''">
+				ADDRESS = #{address, jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				PHONE = #{phone, jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 모든 Member 정보 -->
+	<select id="allMemberList" resultType="com.studymeet.user.dto.UserDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		ORDER BY REG_DT DESC
+	</select>
+	
+	<!-- ID에 해당하는 Member 정보 -->
+	<select id="selectMember" parameterType="java.lang.String" resultType="com.studymeet.user.dto.UserDto">
+		SELECT
+			*
+		FROM
+			MEMBER
+		WHERE
+			ID = #{id, jdbcType=VARCHAR}
+		ORDER BY REG_DT DESC
+	</select>
+	
+	<!-- Member 등록(회원가입) -->
+	<insert id="insertMember" parameterType="com.studymeet.user.dto.UserDto">
+		INSERT INTO MEMBER (
+			ID,
+			PASSWORD,
+			NAME,
+			GENDER,
+			ADDRESS,
+			PHONE,
+			IS_ADMIN,
+			REG_DT
+		) VALUES (
+			#{id, jdbcType=VARCHAR},
+			#{password, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{gender, jdbcType=VARCHAR},
+			#{address, jdbcType=VARCHAR},
+			#{phone, jdbcType=VARCHAR},
+			'false',
+			now()
+		)
+	</insert>
+	
+	<update id="updateMember" parameterType="com.studymeet.user.dto.UserDto">
+		UPDATE MEMBER
+		SET
+			<if test="password != null and password != ''">
+				PASSWORD = #{password, jdbcType=VARCHAR},
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS = #{address, jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				PHONE = #{phone, jdbcType=VARCHAR}
+			</if>
+		WHERE
+			ID = #{id, jdbcType=VARCHAR}
+	</update>
+	
 </mapper>

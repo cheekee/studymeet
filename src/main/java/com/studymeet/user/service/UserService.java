@@ -54,4 +54,12 @@ public interface UserService {
 	 * @return
 	 */
 	public List<UserDto> selectUserList();
+	
+	/**
+	 * Member Id Duplicate Check
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean checkDuplicatedId(String id);
 }

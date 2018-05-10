@@ -7,9 +7,13 @@
 <title>Sign Up</title>
 
 	<!-- Bootstrap core CSS -->
-		<link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-		<link href="/css/bootstrap/bootstrapTemplete.css" rel="stylesheet">
-		<link href="/css/commoncss.css" rel="stylesheet">
+	<link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/bootstrap/bootstrapTemplete.css" rel="stylesheet">
+	<link href="/css/commoncss.css" rel="stylesheet">
+	
+	<!-- js -->
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 
 </head>
 <body>
@@ -25,7 +29,7 @@
 			<h3 class="text-muted"><a href="/" style="text-decoration: none;">StudyMeet</a></h3>
 		</div>
 		
-		<form class="form-horizontal" action='/exesignup' method="POST">
+		<form id="insertMember" class="form-horizontal" action='/exesignup' onsubmit="return false;" method="post" enctype="application/x-www-form-urlencoded">
 			<fieldset>
 				<div id="legend">
 					<legend class="">Register</legend>
@@ -36,6 +40,7 @@
 					<label class="control-label" for="userId">USER ID</label>
 					<div class="controls">
 						<input type="text" id="userId" name="userId" placeholder="" class="input-xlarge form-control">
+						<button class="btn btn-primary" onclick="duplicateCheck();">중복확인</button>
 					</div>
 				</div>
 				
@@ -62,7 +67,7 @@
 					<!-- Username -->
 					<label class="control-label" for="username">USER NAME</label>
 					<div class="controls">
-						<input type="text" id="username" name="username" placeholder="" class="input-xlarge form-control">
+						<input type="text" id="userName" name="userName" placeholder="" class="input-xlarge form-control">
 					</div>
 				</div>
 				
@@ -104,7 +109,7 @@
 				<div class="control-group">
 					<!-- Button -->
 					<div class="controls">
-						<button class="btn btn-success">Register</button>
+						<button class="btn btn-success" onclick="insertMember();">Register</button>
 					</div>
 				</div>
 			</fieldset>
@@ -112,3 +117,32 @@
 	</div>
 </body>
 </html>
+
+<script>
+
+	function duplicateCheck(){
+		alert("test");
+		var userId = $("#userId").val();
+		alert("userId : " + userId);
+		
+		$.ajax({
+            url:'/checkId',
+            type:'post',
+            data:$('#userId').val(),
+            success:function(data){
+                var result = data.result;
+                if(result){
+                	alert("result true");	
+                } else {
+                	alert("result false");	
+                }
+            }, error:function(){
+            	alert("Process Error!!")
+            }
+        })
+	}
+	
+	function insertMember(){
+		$("#insertMember").submit();
+	}
+</script>

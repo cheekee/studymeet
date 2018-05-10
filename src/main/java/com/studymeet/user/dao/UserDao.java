@@ -13,7 +13,7 @@ public interface UserDao {
 	 * @param password
 	 * @return
 	 */
-	public int userLogin(UserDto userDto);
+	public int hasUser(UserDto userDto);
 	
 	/**
 	 * Create User
