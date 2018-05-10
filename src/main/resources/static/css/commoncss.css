@@ -1,3 +1,13 @@
 .footer {
     text-align: center;
 }
+
+/**** index.jsp custom css **/
+#category-group-container {
+    margin-bottom: 30px;
+}
+
+#category-group-container .btn {
+    outline: none;
+    margin-right: 5px;
+}

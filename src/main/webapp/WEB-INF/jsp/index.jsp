@@ -17,13 +17,17 @@
     <link href="/css/bootstrap/bootstrapTemplete.css" rel="stylesheet">
     <link href="/css/commoncss.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .jumbotron .btn {
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,9 +43,19 @@
         </nav>
         <h3 class="text-muted"><a href="/" style="text-decoration: none;">StudyMeet</a></h3>
     </div>
-
     <div class="jumbotron">
-        <h1>category place</h1>
+        <div id="category-group-container">
+            <!-- 검색어 입려 후 엔터키 -> #검색어 로 변환되어 말풍선되어 이곳에 모임 -->
+            <button type="button" class="btn btn-primary btn-sm">#대전</button>
+            <button type="button" class="btn btn-secondary btn-sm">#java</button>
+            <button type="button" class="btn btn-success btn-sm">#javascript</button>
+            <button type="button" class="btn btn-danger btn-sm">#평일</button>
+            <button type="button" class="btn btn-warning btn-sm">#초급</button>
+            <button type="button" class="btn btn-info btn-sm">#웹개발자</button>
+        </div>
+        <div class="container">
+            <input class="form-control form-control-lg" type="text" placeholder="원하는 검색어를 입력해주세요">
+        </div>
     </div>
 
     <div class="list-group">
@@ -122,7 +136,6 @@
 </div> <!-- /container -->
 </body>
 
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
