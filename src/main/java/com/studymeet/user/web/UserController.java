@@ -3,16 +3,17 @@ package com.studymeet.user.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,14 +39,30 @@ public class UserController {
 
 	// Execute Login Process 
 	@RequestMapping(value="/exesignin", method=RequestMethod.POST)
-	public void exeSignIn(HttpServletRequest request) {
-		String id = (String) request.getParameter("inputId");
-		String password = (String) request.getParameter("inputPassword");
-		
-		boolean isSuccessedLogin = userService.userLogin(id, password);
-		
-		if(isSuccessedLogin){
-		} else {
+	public void exeSignIn(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String id = (String) request.getParameter("inputId");
+			String password = (String) request.getParameter("inputPassword");
+			
+			boolean isSuccessedLogin = userService.userLogin(id, password);
+			
+			HttpSession session = request.getSession();
+			if(isSuccessedLogin){
+				session.setAttribute("hasSession", isSuccessedLogin);
+				session.setAttribute("loginId", id);
+			}
+			
+			System.out.println(session.getAttribute("loginId"));
+			JSONObject jsonObj = new JSONObject();
+			
+			jsonObj.put("result", isSuccessedLogin);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(jsonObj.toString());
+			
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
 		}
 		
 	}
@@ -58,35 +75,38 @@ public class UserController {
 	
 	// Execute Sign Up Process
 	@RequestMapping(value="/exesignup", method=RequestMethod.POST)
-	public String exeSignUp(HttpServletRequest request) {
+	public String exeSignUp(@ModelAttribute UserDto user, HttpServletRequest request) {
 		
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		
-		params.put("id", request.getParameter("userId"));
+		params.put("id", request.getParameter("id"));
 		params.put("password", request.getParameter("password"));
-		params.put("name", request.getParameter("userName"));
+		params.put("name", request.getParameter("name"));
 		params.put("gender", request.getParameter("gender"));
 		params.put("address", request.getParameter("address"));
 		params.put("phone", request.getParameter("phone"));
 		
-		userService.createUser(params);
+		System.out.println("params : " + params.toString());
+		System.out.println("user : " + user.toString());
+		
+		userService.createUser(user);
 		
 		return "user/joinForm";
 	}
 	
 	// Check Duplicated ID
-	@RequestMapping(value="/checkId")
-	public void checkDuplicatedId(@RequestParam("id") String memberId, HttpServletResponse response) {
-		System.out.println("check....");
+	@RequestMapping(value="/checkId", method=RequestMethod.POST)
+	public void checkDuplicatedId(@RequestParam("userId") String memberId, HttpServletResponse response) {
 		boolean hasDuplicatedId = userService.checkDuplicatedId(memberId);
 		
-		JSONObject jsonObj=new JSONObject();
-
 		try {
+			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("result", hasDuplicatedId);
-			System.out.println("jsonObj : " + jsonObj.toString());
+			
+			response.setContentType("application/json; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.print(jsonObj.toString()); 
+			out.write(jsonObj.toString());
+			
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		}

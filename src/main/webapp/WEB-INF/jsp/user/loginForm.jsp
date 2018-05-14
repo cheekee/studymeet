@@ -73,7 +73,12 @@
 					alert('Error!!');
 				},
 				success : function(data){
-					alert("Success") ;
+					var loginResult = data.result;
+					if(loginResult){
+						window.open("/", "_self");
+					} else {
+						alert("ID or PW Check!!!");
+					}
 				}
 				 
 			});

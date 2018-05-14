@@ -22,7 +22,7 @@ public interface UserService {
 	 * @param userDto
 	 * @return
 	 */
-	public boolean createUser(HashMap<String, Object> userParam);
+	public boolean createUser(UserDto user);
 	
 	/**
 	 * Update User

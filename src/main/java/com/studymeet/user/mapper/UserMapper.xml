@@ -25,10 +25,10 @@
 		WHERE
 			NAME = #{name, jdbcType=VARCHAR}
 			<if test="address != null and address != ''">
-				ADDRESS = #{address, jdbcType=VARCHAR}
+				AND ADDRESS = #{address, jdbcType=VARCHAR}
 			</if>
 			<if test="phone != null and phone != ''">
-				PHONE = #{phone, jdbcType=VARCHAR}
+				AND PHONE = #{phone, jdbcType=VARCHAR}
 			</if>
 	</select>
 	
@@ -42,13 +42,25 @@
 	</select>
 	
 	<!-- ID에 해당하는 Member 정보 -->
-	<select id="selectMember" parameterType="java.lang.String" resultType="com.studymeet.user.dto.UserDto">
+	<select id="selectMember" parameterType="com.studymeet.user.dto.UserDto" resultType="com.studymeet.user.dto.UserDto">
 		SELECT
 			*
 		FROM
 			MEMBER
 		WHERE
 			ID = #{id, jdbcType=VARCHAR}
+			<if test="password != null and password != ''">
+				PASSWORD = #{password, jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				AND NAME = #{name, jdbcType=VARCHAR}
+			</if>
+			<if test="address != null and address != ''">
+				AND ADDRESS = #{address, jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND PHONE = #{phone, jdbcType=VARCHAR}
+			</if>
 		ORDER BY REG_DT DESC
 	</select>
 	
@@ -76,7 +88,8 @@
 	</insert>
 	
 	<update id="updateMember" parameterType="com.studymeet.user.dto.UserDto">
-		UPDATE MEMBER
+		UPDATE
+			MEMBER
 		SET
 			<if test="password != null and password != ''">
 				PASSWORD = #{password, jdbcType=VARCHAR},
@@ -90,5 +103,12 @@
 		WHERE
 			ID = #{id, jdbcType=VARCHAR}
 	</update>
+	
+	<delete id="deleteMember" parameterType="java.lang.String">
+		DELETE
+			MEMEBER
+		WHERE
+			ID = #{id, jdbcType=VARCHAR} 
+	</delete>
 	
 </mapper>

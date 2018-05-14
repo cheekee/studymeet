@@ -28,30 +28,27 @@ public class UserServiceImpl implements UserService {
 		userDto.setId(id);
 		userDto.setPassword(encryption.StringToHasingSHA256(password));
 		int loginCount = userDao.hasUser(userDto);
-		System.out.println("loginCount : " + loginCount);
 		
 		if(loginCount == 1){
-			// session 생성하기
-			
+			System.out.println("here...");
 			return true;
 		}
 		
 		return false;
-		//return userDao.userLogin(id, passwordHash);
 	}
 	
 	@Override
-	public boolean createUser(HashMap<String, Object> userParam) {
-		UserDto userDto = new UserDto();
+	public boolean createUser(UserDto user) {
+		/*UserDto userDto = new UserDto();
 		
 		userDto.setId((String) userParam.get("id"));
 		userDto.setPassword(encryption.StringToHasingSHA256((String) userParam.get("password")));
 		userDto.setName((String) userParam.get("name"));
 		userDto.setGender((String) userParam.get("gender"));
 		userDto.setPhone((String) userParam.get("phone"));
-		userDto.setAddress((String) userParam.get("address"));
+		userDto.setAddress((String) userParam.get("address"));*/
 		
-		return userDao.createUser(userDto);
+		return userDao.createUser(user);
 	}
 
 	@Override

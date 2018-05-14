@@ -48,14 +48,13 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean deleteUser(String userId) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public UserDto selectUser(UserDto userDto) {
-		// TODO Auto-generated method stub
-		return null;
+		return userMapper.selectMember(userDto);
 	}
 
 	@Override

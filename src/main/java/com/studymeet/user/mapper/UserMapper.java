@@ -20,4 +20,6 @@ public interface UserMapper {
 	
 	public List<UserDto> allMemberList();
 	
+	public UserDto selectMember(UserDto userDto);
+	
 }

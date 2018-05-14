@@ -12,7 +12,7 @@
 	<link href="/css/commoncss.css" rel="stylesheet">
 	
 	<!-- js -->
-	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script  src="/js/jquery/jquery-1.4.2.min.js"></script>
 
 
 </head>
@@ -29,7 +29,7 @@
 			<h3 class="text-muted"><a href="/" style="text-decoration: none;">StudyMeet</a></h3>
 		</div>
 		
-		<form id="insertMember" class="form-horizontal" action='/exesignup' onsubmit="return false;" method="post" enctype="application/x-www-form-urlencoded">
+		<form id="insertMember" class="form-horizontal" action='/exesignup' onsubmit="return false;" method="post" enctype="application/x-www-form-urlencoded" accept-charset="utf-8">
 			<fieldset>
 				<div id="legend">
 					<legend class="">Register</legend>
@@ -39,8 +39,9 @@
 					<!-- Username -->
 					<label class="control-label" for="userId">USER ID</label>
 					<div class="controls">
-						<input type="text" id="userId" name="userId" placeholder="" class="input-xlarge form-control">
-						<button class="btn btn-primary" onclick="duplicateCheck();">중복확인</button>
+						<input type="text" id="userId" name="id" placeholder="" class="input-xlarge form-control" style="width: 80%; margin-right: 2%; float: left;">
+						<button class="btn btn-primary" onclick="duplicateCheck();" style="width: 18%;">Duplcate Check</button>
+						<div id="duplicateCheckResult" style="margin-top: 5px;"></div>
 					</div>
 				</div>
 				
@@ -65,19 +66,19 @@
 				
 				<div class="control-group">
 					<!-- Username -->
-					<label class="control-label" for="username">USER NAME</label>
+					<label class="control-label" for="name">USER NAME</label>
 					<div class="controls">
-						<input type="text" id="userName" name="userName" placeholder="" class="input-xlarge form-control">
+						<input type="text" id="userName" name="name" placeholder="" class="input-xlarge form-control">
 					</div>
 				</div>
 				
 				<div class="control-group">
 					<!-- Username -->
-					<label class="control-label" for="gender">GENDER</label>
+					<label class="control-label" for="">GENDER</label>
 					<div class="controls">
-						<input type="radio" id="gender" name="gender" value="MAN" placeholder="" >MAN
+						<label><input type="radio" class="gender" name="gender" value="MAN" placeholder="" >MAN</label>
 						&nbsp;
-						<input type="radio" id="gender" name="gender" value="WOMAN" placeholder="">WOMAN
+						<label><input type="radio" class="gender" name="gender" value="WOMAN" placeholder="">WOMAN</label>
 					</div>
 				</div>
 	
@@ -121,25 +122,25 @@
 <script>
 
 	function duplicateCheck(){
-		alert("test");
-		var userId = $("#userId").val();
-		alert("userId : " + userId);
-		
 		$.ajax({
-            url:'/checkId',
-            type:'post',
-            data:$('#userId').val(),
-            success:function(data){
-                var result = data.result;
-                if(result){
-                	alert("result true");	
-                } else {
-                	alert("result false");	
-                }
-            }, error:function(){
-            	alert("Process Error!!")
-            }
-        })
+			url:'/checkId',
+			type:'post',
+			data: {"userId" : $("#userId").val() },
+			success:function(data){
+				var idDuplicate = data.result;
+				alert("idDuplicate : " + idDuplicate);
+				
+				var duplicateCheckResult = $("#duplicateCheckResult");
+				if(idDuplicate){
+					duplicateCheckResult.attr("available", "unavailable").css("color", "red").text("Unavailable ID.");
+					//$("</span>").attr("available", "unavailable").text("Unavailable ID.").css("color","red").appendTo(duplicateCheckResult);
+				} else {
+					duplicateCheckResult.attr("available", "available").css("color", "##0000cd").text("Available ID.");
+				}
+			}, error:function(data, e){
+				alert("Process Error!!")
+			}
+		});
 	}
 	
 	function insertMember(){

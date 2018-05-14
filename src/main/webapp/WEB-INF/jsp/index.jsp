@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -34,6 +36,9 @@
 
 <div class="container">
     <div class="header">
+    	<c:if test="${not empty sessionScope.loginId}">
+    		<span>========  ${sessionScope.loginId}  =========</span>
+    	</c:if>
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="/">Home</a></li>
