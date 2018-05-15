@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta name="google-signin-client_id" content="833224171048-qdos7flnh5mqmchp5naijc5c818nue7c.apps.googleusercontent.com">
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -10,19 +11,12 @@
 		<link href="/css/commoncss.css" rel="stylesheet">
 		
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
 	</head>
 	<body>
 		<div class="container">
-		
-			<div class="header">
-				<nav>
-					<ul class="nav nav-pills pull-right">
-						<li role="presentation" class="active"><a href="/">Home</a></li>
-						<li role="presentation"><a href="/signup">SignUp</a></li>
-					</ul>
-				</nav>
-				<h3 class="text-muted"><a href="/" style="text-decoration: none;">StudyMeet</a></h3>
-			</div>
+			
+			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<form id="formSignin" class="form-signin" action="/exesignin" method="post" enctype="application/x-www-form-urlencoded">
 				<h2 class="form-signin-heading">Please sign in</h2>
@@ -40,6 +34,9 @@
 				</div>
 				
 				<button class="btn btn-lg btn-primary btn-block" type="button" onclick="signin();">Sign in</button>
+				
+				<div class="g-signin2" data-onsuccess="onSignIn"></div>
+				<a href="#" onclick="signOut();">Sign out</a>
 			</form>
 		</div>
 	</body>
@@ -92,5 +89,22 @@
 			return false;
 		}
 		return true;
+	}
+	
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		console.log('Name: ' + profile.getName());
+		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		
+		var id_token = googleUser.getAuthResponse().id_token;
+		console.log("ID Token : " + id_token);
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+			console.log('User signed out.');
+		});
 	}
 </script>

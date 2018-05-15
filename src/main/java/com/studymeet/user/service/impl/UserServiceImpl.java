@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
 		int loginCount = userDao.hasUser(userDto);
 		
 		if(loginCount == 1){
-			System.out.println("here...");
 			return true;
 		}
 		
@@ -39,14 +38,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public boolean createUser(UserDto user) {
-		/*UserDto userDto = new UserDto();
 		
-		userDto.setId((String) userParam.get("id"));
-		userDto.setPassword(encryption.StringToHasingSHA256((String) userParam.get("password")));
-		userDto.setName((String) userParam.get("name"));
-		userDto.setGender((String) userParam.get("gender"));
-		userDto.setPhone((String) userParam.get("phone"));
-		userDto.setAddress((String) userParam.get("address"));*/
+		user.setPassword(encryption.StringToHasingSHA256((String) user.getPassword()));
 		
 		return userDao.createUser(user);
 	}

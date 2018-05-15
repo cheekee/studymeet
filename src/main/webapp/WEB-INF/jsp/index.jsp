@@ -35,10 +35,7 @@
 <body>
 
 <div class="container">
-    <div class="header">
-    	<c:if test="${not empty sessionScope.loginId}">
-    		<span>========  ${sessionScope.loginId}  =========</span>
-    	</c:if>
+    <%-- <div class="header">
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="/">Home</a></li>
@@ -47,7 +44,10 @@
             </ul>
         </nav>
         <h3 class="text-muted"><a href="/" style="text-decoration: none;">StudyMeet</a></h3>
-    </div>
+    </div> --%>
+    
+    <jsp:include page="common/header.jsp"></jsp:include>
+    
     <div class="jumbotron">
         <div id="category-group-container">
             <!-- 검색어 입려 후 엔터키 -> #검색어 로 변환되어 말풍선되어 이곳에 모임 -->

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,12 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	
+	@Autowired
+	private OAuth2Parameters googleOAuth2Paramegers;
 	
 	@Resource(name="com.studymeet.user.mapper.UserMapper")
 	UserMapper userMapper;
@@ -86,12 +94,20 @@ public class UserController {
 		params.put("address", request.getParameter("address"));
 		params.put("phone", request.getParameter("phone"));
 		
-		System.out.println("params : " + params.toString());
-		System.out.println("user : " + user.toString());
-		
 		userService.createUser(user);
 		
 		return "user/joinForm";
+	}
+	
+	// Execute Sign Up Process
+	@RequestMapping(value="/logout")
+	public String logOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session != null){
+			session.invalidate();
+		}
+		
+		return "index";
 	}
 	
 	// Check Duplicated ID
